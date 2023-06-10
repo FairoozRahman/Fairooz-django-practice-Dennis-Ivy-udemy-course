@@ -25,7 +25,7 @@ def loginUser(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('edit-account')
+            return redirect('account')
         else:
             messages.error(request, 'Username OR Password is incorrect')
     return render(request, 'users/login_register.html')
@@ -48,7 +48,7 @@ def registerUser(request):
             user.save()
             messages.success(request, 'User account was created!')
             login(request, user)
-            return redirect('profiles')
+            return redirect('edit-account')
         else:
             messages.error(request, 'An error has occurred during registration.')
     context = {'page': page, 'form': form}
