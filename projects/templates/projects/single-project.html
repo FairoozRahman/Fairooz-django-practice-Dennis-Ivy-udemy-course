@@ -16,18 +16,16 @@
               {% endfor %}
           </div>
             {% if projectObj.source_link %}
-          <a class="singleProject__liveLink" href="#" target="_blank"><i class="im im-external-link"></i>Source Code
-          </a>
+          <a class="singleProject__liveLink" href="#" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i>Source Code</a>
             {% endif %}
             <br>
             {% if projectObj.demo_link %}
-          <a class="singleProject__liveLink" href="#" target="_blank"><i class="im im-external-link"></i>Live Demo
-          </a>
+          <a class="singleProject__liveLink" href="#" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i>Live Demo</a>
             {% endif %}
         </div>
         <div class="column column--2of3">
           <img class="singleProject__preview" src="{{ projectObj.featured_image.url }}" alt="portfolio thumbnail" />
-          <a href="profile.html" class="singleProject__developer">Md. Shahriar Parvez</a>
+          <a href="{% url 'user-profile' projectObj.owner.id %}" class="singleProject__developer">{{ projectObj.owner.name }}</a>
           <h2 class="singleProject__title">{{ projectObj.title }}</h2>
           <h3 class="singleProject__subtitle">About the Project</h3>
           <div class="singleProject__info">

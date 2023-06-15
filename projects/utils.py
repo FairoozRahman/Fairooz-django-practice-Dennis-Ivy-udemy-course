@@ -8,8 +8,7 @@ def searchProjects(request):
     if request.GET.get('search_query'):
         search_query = request.GET.get('search_query')
     tag = Tag.objects.filter(name__icontains=search_query)
-    projectsObj = Project.objects.distinct().filter(Q(title__icontains=search_query) |
-                                                    Q(description__icontains=search_query) |
+    projectsObj = Project.objects.distinct().filter(Q(title__icontains=search_query) | Q(description__icontains=search_query) | 
                                                     Q(owner__name__icontains=search_query) | Q(tags__in=tag))
     return projectsObj, search_query
 
