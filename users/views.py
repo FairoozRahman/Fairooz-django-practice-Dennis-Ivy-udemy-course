@@ -50,23 +50,28 @@ def registerUser(request):
             login(request, user)
             return redirect('edit-account')
         else:
-            messages.error(request, 'An error has occurred during registration.')
+            messages.error(
+                request, 'An error has occurred during registration.')
     context = {'page': page, 'form': form}
     return render(request, 'users/login_register.html', context)
 
 
 def profiles(request):
     profilesObj, search_query = searchProfiles(request)
-    # custom_range, profilesObj = paginateProfiles(request, profilesObj, 3)
-    context = {'profiles': profilesObj, 'search_query': search_query}
+    custom_range, profilesObj = paginateProfiles(request, profilesObj, 3)
+    context = {'profiles': profilesObj,
+               'search_query': search_query, 'custom_range': custom_range}
     return render(request, 'users/profiles.html', context)
 
 
 def userProfile(request, pk):
     profile = Profile.objects.get(id=pk)
+    if profile.id == request.user.profile.id:
+        return redirect('account')
     topSkills = profile.skill_set.exclude(description__exact="")
     otherSkills = profile.skill_set.filter(description="")
-    context = {'profile': profile, 'topSkills': topSkills, 'otherSkills': otherSkills}
+    context = {'profile': profile, 'topSkills': topSkills,
+               'otherSkills': otherSkills}
     return render(request, 'users/user-profile.html', context)
 
 

@@ -8,8 +8,7 @@ def searchProfiles(request):
     if request.GET.get('search_query'):
         search_query = request.GET.get('search_query')
     skills = Skill.objects.filter(name__icontains=search_query)
-    profilesObj = Profile.objects.distinct().filter(Q(name__icontains=search_query) |
-                                                    Q(short_intro__icontains=search_query) | Q(skill__in=skills))
+    profilesObj = Profile.objects.distinct().filter(Q(name__icontains=search_query) | Q(short_intro__icontains=search_query) | Q(skill__in=skills))
     return profilesObj, search_query
 
 
